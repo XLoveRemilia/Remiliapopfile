@@ -5,8 +5,8 @@
 population
 {
 	StartingCurrency 400
-	RespawnWaveTime	8
-	FixedRespawnWaveTime Yes
+	RespawnWaveTime	6
+	FixedRespawnWaveTime No
 	CanBotsAttackWhileInSpawnRoom no
 	AddSentryBusterWhenDamageDealtExceeds 3000
     AddSentryBusterWhenKillCountExceeds 20
@@ -16,7 +16,7 @@ population
 		T_TFBot_heavy_steel_conch
 		{
 			Class	Heavyweapons
-			Health	1000
+			Health	900
 			tag	bot_giant
 			Name	"Steel Gauntlet the Concheror"
 			ClassIcon	heavy_steelfist_conch
@@ -45,7 +45,6 @@ population
 			Attributes SpawnWithFullCharge
 			Item	"Crit-a-Cola"
 			Item "The Caffeine Cooler"
-			MaxVisionRange 650
 			ItemAttributes
 			{
 				ItemName	"The Soda Popper"
@@ -79,6 +78,32 @@ population
 				"airblast vulnerability multiplier" 0.1
 			}
 		}
+		T_TFBot_inf_krit
+		{
+			Class Medic
+			Health	150
+			Name	"Kritzkrieg Medic"
+			ClassIcon	medic_kritz
+			Skill	Easy
+			Item	"The Kritzkrieg"
+			Attributes SpawnWithFullCharge
+			ItemAttributes
+			{
+				ItemName	"The Kritzkrieg"
+				"ubercharge rate bonus" 3
+				"bot medic uber health threshold" 400
+				"uber duration bonus" 200
+			}
+			ItemAttributes
+			{
+				ItemName "TF_WEAPON_SYRINGEGUN_MEDIC"
+				"damage penalty" 0.1
+			}
+			CharacterAttributes
+			{
+				"heal rate bonus" 3
+			}
+		}
 		T_TFBot_quick_krit
 		{
 			Class Medic
@@ -107,7 +132,7 @@ population
 		T_TFBot_heal_on_hit_scout
 		{
 			Class	Scout
-			ClassIcon	scout_healw_elite
+			ClassIcon	scout_healw
 			Name	"Heal-on-Hit Winger Scout"
 			Item	"The Winger"
 			Skill	Hard
@@ -162,7 +187,6 @@ population
 			Skill	Normal
 			WeaponRestrictions	PrimaryOnly
 			Attributes	MiniBoss
-			Attributes UseBossHealthBar
 			
 			ItemAttributes
 			{
@@ -177,8 +201,8 @@ population
 			{
 				"move speed bonus"	0.5
 				"damage force reduction" 0.6
-				"airblast vulnerability multiplier" 0.05
-				"airblast vertical vulnerability multiplier" 0.05
+				"airblast vulnerability multiplier" 0.005
+				"airblast vertical vulnerability multiplier" 0.005
 				"override footstep sound set" 6
 			}
 		}
@@ -368,6 +392,7 @@ population
 		TFBot
 		{
 			Template	T_TFBot_Sniper_Sydney_Sleeper
+			
 			MaxVisionRange 4000
 		}
 	}
@@ -383,6 +408,7 @@ population
 		TFBot
 		{
 			Template	T_TFBot_Sniper_Sydney_Sleeper
+			Name "Razorback Sydney Sniper"
 			Item "The Razorback"
 			MaxVisionRange 4000
 		}
@@ -403,13 +429,13 @@ population
 			Name Spy
 		}
 	}
-	Mission	//Spy	4-5
+	Mission	//Spy	5
 	{
 		Objective Spy
-		InitialCooldown 35
+		InitialCooldown 70
 		Where spawnbot
-		BeginAtWave 4
-		RunForThisManyWaves 2
+		BeginAtWave 5
+		RunForThisManyWaves 1
 		CooldownTime 45
 		DesiredCount 2
 		TFBot
@@ -419,7 +445,7 @@ population
 			Name Spy
 		}
 	}
-	Mission	//Spy	7
+	Mission	//Spy	8
 	{
 		Objective Spy
 		InitialCooldown 20
@@ -435,8 +461,8 @@ population
 			Name Spy
 		}
 	}
-	Wave	//600
-	{
+	Wave	//600 800
+	{ 
 		WaitWhenDone	65
 		Checkpoint	Yes
 		StartWaveOutput
@@ -464,6 +490,7 @@ population
 				Class	Scout
 				Skill	Normal
 				WeaponRestrictions	MeleeOnly
+				Name	"Melee Scout"
 			}
 		}
 		WaveSpawn
@@ -484,9 +511,9 @@ population
 		}
 		WaveSpawn
 		{
-			Name	1B1
+			Name	1B
 			WaitForAllDead 1A
-			TotalCurrency	50
+			TotalCurrency	75
 			TotalCount	3
 			Where	spawnbot_flank
 			MaxActive	3
@@ -500,9 +527,9 @@ population
 		}
 		WaveSpawn
 		{
-			Name	1B2
+			Name	1B
 			WaitForAllDead 1A
-			TotalCurrency	50
+			TotalCurrency	75
 			TotalCount	24
 			Where	spawnbot
 			MaxActive	12
@@ -513,6 +540,39 @@ population
 			{
 				Class Soldier
 				Skill	Hard
+			}
+		}
+		WaveSpawn
+		{
+			Name	1B2
+			WaitForAllDead 1B
+			TotalCurrency	25
+			TotalCount	32
+			Where	spawnbot
+			MaxActive	8
+			SpawnCount	4
+			WaitBeforeStarting	0
+			WaitBetweenSpawns	6
+			TFBot
+			{
+				Template	T_TFBot_Heavyweapons_Shotgun
+				Skill	Hard
+			}
+		}
+		WaveSpawn
+		{
+			Name	1B2
+			WaitForAllDead 1B
+			TotalCurrency	25
+			TotalCount	33
+			Where	spawnbot
+			MaxActive	6
+			SpawnCount	3
+			WaitBeforeStarting	0
+			WaitBetweenSpawns	3
+			TFBot
+			{
+				Template	T_TFBot_Scout_Sandman_FastCharge
 			}
 		}
 		WaveSpawn
@@ -535,13 +595,13 @@ population
 		{
 			Name	1C2
 			WaitForAllDead	1B2
-			TotalCurrency	200
+			TotalCurrency	250
 			Where	spawnbot
 			TotalCount	2
 			MaxActive	2
 			SpawnCount	1
 			WaitBeforeStarting	6
-			WaitBetweenSpawns	20
+			WaitBetweenSpawns	25
 			TFBot
 			{
 				Template	T_TFBot_Giant_Pyro_Flare_Spammer
@@ -578,7 +638,7 @@ population
 		{
 			Name	1D
 			WaitForAllDead	1C2
-			TotalCurrency	100
+			TotalCurrency	150
 			Where	spawnbot
 			TotalCount	1
 			MaxActive	1
@@ -590,13 +650,13 @@ population
 				Template	T_TFBot_Giant_Soldier_Spammer
 				CharacterAttributes
 				{
-					"damage force reduction" 0.05
-					"airblast vulnerability multiplier" 0.05
+					"damage force reduction" 0.005
+					"airblast vulnerability multiplier" 0.005
 				}
 			}
 		}
 	}
-	Wave	//500
+	Wave	//500 700
 	{
 		WaitWhenDone	65
 		Checkpoint	Yes
@@ -613,7 +673,7 @@ population
 		WaveSpawn
 		{
 			Name	2A
-			TotalCurrency	50
+			TotalCurrency	75
 			TotalCount	36
 			Where	spawnbot
 			MaxActive	12
@@ -632,7 +692,7 @@ population
 		WaveSpawn
 		{
 			Name	2A
-			TotalCurrency	50
+			TotalCurrency	75
 			TotalCount	3
 			Where	spawnbot_flank
 			MaxActive	2
@@ -680,7 +740,7 @@ population
 		{	
 			Name	2B
 			WaitForAllDead	2A
-			TotalCurrency	20
+			TotalCurrency	70
 			TotalCount	2
 			Where	spawnbot
 			MaxActive	2
@@ -692,8 +752,8 @@ population
 				Template	T_TFBot_Giant_Soldier_Crit
 				CharacterAttributes
 				{
-					"damage force reduction" 0.05
-					"airblast vulnerability multiplier" 0.05
+					"damage force reduction" 0.005
+					"airblast vulnerability multiplier" 0.005
 				}
 			}
 		}
@@ -749,7 +809,7 @@ population
 		{
 			Name	2C
 			WaitForAllDead	2B
-			TotalCurrency	70
+			TotalCurrency	170
 			TotalCount	1
 			Where	spawnbot
 			MaxActive	1
@@ -761,13 +821,13 @@ population
 				Template	T_TFBot_Giant_Scout_Baseball_Armored 
 				CharacterAttributes
 				{
-					"damage force reduction" 0.05
-					"airblast vulnerability multiplier" 0.05
+					"damage force reduction" 0.005
+					"airblast vulnerability multiplier" 0.005
 				}
 			}
 		}
 	}
-	Wave	//700
+	Wave	//700    800
 	{
 		WaitWhenDone	65
 		Checkpoint	Yes
@@ -841,6 +901,7 @@ population
 			TFBot
 			{
 				Template	T_TFBot_Scout_Bonk
+				Name	"Bonk Scout"
 			}
 		}
 		WaveSpawn
@@ -868,8 +929,8 @@ population
 			Where	spawnbot
 			MaxActive	6
 			SpawnCount	2
-			WaitBeforeStarting	15
-			WaitBetweenSpawns	17
+			WaitBeforeStarting	16
+			WaitBetweenSpawns	12
 			Squad
 			{
 				TFBot
@@ -907,15 +968,15 @@ population
 			TotalCount	2
 			MaxActive	1
 			SpawnCount	1
-			WaitBeforeStarting	14
-			WaitBetweenSpawns	10
+			WaitBeforeStarting	13
+			WaitBetweenSpawns	9
 			TFBot
 			{
 				Template	T_TFBot_Giant_Soldier_Spammer_Reload
 				CharacterAttributes
 				{
-					"damage force reduction" 0.05
-					"airblast vulnerability multiplier" 0.05
+					"damage force reduction" 0.005
+					"airblast vulnerability multiplier" 0.005
 				}
 			}
 		}
@@ -928,15 +989,15 @@ population
 			TotalCount	2
 			MaxActive	1
 			SpawnCount	1
-			WaitBeforeStarting	14
-			WaitBetweenSpawns	10
+			WaitBeforeStarting	13
+			WaitBetweenSpawns	9
 			TFBot
 			{
 				Template	T_TFBot_Giant_Soldier_Spammer_Reload
 				CharacterAttributes
 				{
-					"damage force reduction" 0.05
-					"airblast vulnerability multiplier" 0.05
+					"damage force reduction" 0.005
+					"airblast vulnerability multiplier" 0.005
 				}
 			}
 		}
@@ -949,13 +1010,14 @@ population
 			TotalCount	12
 			MaxActive	8
 			SpawnCount	4
-			WaitBeforeStarting	15
-			WaitBetweenSpawns	20
+			WaitBeforeStarting	13
+			WaitBetweenSpawns	17
 			Squad
 			{
 				TFBot
 				{
 					Template	T_TFBot_Heavyweapons_Heater
+					Name	"Giant Heater Heavy"
 				}
 				TFBot
 				{
@@ -975,6 +1037,7 @@ population
 		{
 			Name	3S
 			WaitForAllDead	3C
+			TotalCurrency	30
 			Where	spawnbot
 			TotalCount	3
 			MaxActive	3
@@ -991,6 +1054,7 @@ population
 		{
 			Name	3S
 			WaitForAllDead	3C
+			TotalCurrency	30
 			Where	spawnbot
 			TotalCount	2
 			MaxActive	2
@@ -1007,6 +1071,7 @@ population
 		WaveSpawn
 		{
 			Name	3S
+			TotalCurrency	40
 			WaitForAllDead	3C
 			Where	spawnbot_flank
 			TotalCount	2
@@ -1021,7 +1086,7 @@ population
 			}
 		}
 	}
-	Wave	//600
+	Wave	//600  700
 	{
 		WaitWhenDone	65
 		Checkpoint	Yes
@@ -1084,8 +1149,8 @@ population
 				Template	T_TFBot_Giant_Demo_Burst
 				CharacterAttributes
 				{
-					"damage force reduction" 0.05
-					"airblast vulnerability multiplier" 0.05
+					"damage force reduction" 0.005
+					"airblast vulnerability multiplier" 0.005
 				}
 			}
 		}
@@ -1105,8 +1170,8 @@ population
 				Template	T_TFBot_Giant_Scout_Fast
 				CharacterAttributes
 				{
-					"damage force reduction" 0.2
-					"airblast vulnerability multiplier" 0.2
+					"damage force reduction" 0.005
+					"airblast vulnerability multiplier" 0.005
 				}
 			}
 		}
@@ -1116,9 +1181,9 @@ population
 			WaitForAllDead	4A
 			Where	spawnbot
 			TotalCurrency	50
-			TotalCount	48
-			MaxActive	12
-			SpawnCount	12
+			TotalCount	28
+			MaxActive	7
+			SpawnCount	7
 			WaitBeforeStarting	0
 			WaitBetweenSpawns	7
 			TFBot
@@ -1165,7 +1230,6 @@ population
 				{
 					Class	Soldier
 					Skill	Hard
-					Attributes	AlwaysCrit
 				}
 				TFBot
 				{
@@ -1200,14 +1264,13 @@ population
 			{
 				Class	Demoman
 				Skill	Hard
-				Attributes	AlwaysCrit
 			}
 		}
 		WaveSpawn
 		{
 			Name	4D
 			WaitForAllDead	4C1
-			TotalCurrency	100
+			TotalCurrency	200
 			Where	spawnbot
 			TotalCount	2
 			MaxActive	2
@@ -1222,8 +1285,8 @@ population
 					Attributes	AlwaysCrit
 					CharacterAttributes
 				{
-					"damage force reduction" 0.05
-					"airblast vulnerability multiplier" 0.05
+					"damage force reduction" 0.005
+					"airblast vulnerability multiplier" 0.005
 				}
 				}
 				TFBot
@@ -1231,8 +1294,8 @@ population
 					Template	T_TFBot_Giant_Medic_Regen
 					CharacterAttributes
 				{
-					"damage force reduction" 0.05
-					"airblast vulnerability multiplier" 0.05
+					"damage force reduction" 0.005
+					"airblast vulnerability multiplier" 0.005
 				}
 				}
 			}
@@ -1270,7 +1333,7 @@ population
 
 			Tank
 			{
-				Health 40000
+				Health 30000
 				Speed 75
 				Name "tankboss"
 				StartingPathTrackNode "boss_path_a1"
@@ -1286,11 +1349,12 @@ population
 		{
 			Name	5S
 			Where	spawnbot
-			TotalCount	5
+			TotalCurrency	25
+			TotalCount	6
 			MaxActive	6
 			SpawnCount	3
 			Support 1
-			WaitBeforeStarting	20
+			WaitBeforeStarting	10
 			WaitBetweenSpawns	10
 			TFBot
 			{
@@ -1301,27 +1365,30 @@ population
 		{
 			Name	5S
 			Where	spawnbot_flank
+			TotalCurrency	25
 			TotalCount	5
 			MaxActive	4
 			SpawnCount	2
 			Support 1
-			WaitBeforeStarting	20
-			WaitBetweenSpawns	14
+			WaitBeforeStarting	10
+			WaitBetweenSpawns	20
 			TFBot
 			{
 				Template	T_TFBot_Scout_Bonk
+				Name	"Bonk Scout"
 			}
 		}
 		WaveSpawn
 		{
 			Name	5S
 			Where	spawnbot
-			TotalCount	5
+			TotalCurrency	25
+			TotalCount	6
 			MaxActive	6
 			SpawnCount	1
 			Support 1
-			WaitBeforeStarting	25
-			WaitBetweenSpawns	6
+			WaitBeforeStarting	15
+			WaitBetweenSpawns	8
 			TFBot
 			{
 				Template	T_TFBot_Scout_Sandman_FastCharge
@@ -1331,12 +1398,13 @@ population
 		{
 			Name	5S
 			Where	spawnbot_flank
+			TotalCurrency	25
 			TotalCount	5
-			MaxActive	4
-			SpawnCount	2
+			MaxActive	3
+			SpawnCount	1
 			Support 1
-			WaitBeforeStarting	30
-			WaitBetweenSpawns	15
+			WaitBeforeStarting	20
+			WaitBetweenSpawns	20
 			TFBot
 			{
 				Class	Heavy
@@ -1357,7 +1425,15 @@ population
 			TFBot
 			{
 				Template	T_TFBot_Chief_Heavyweapons_HealOnKill
-				Health	45000
+				Health	32500
+				Skill	Hard
+				ItemAttributes
+				{
+					ItemName "Deflector"
+					"damage bonus"	1.1
+					"attack projectiles" 1
+					"heal on kill" 2000
+				}
 				CharacterAttributes
 				{
 					"damage force reduction" 0.005
@@ -1371,7 +1447,7 @@ population
 			WaitForAllDead	5A
 			Where	spawnbot
 			TotalCount	4
-			TotalCurrency	200
+			TotalCurrency	100
 			MaxActive	4
 			SpawnCount	1
 			WaitBeforeStarting	30
@@ -1447,8 +1523,8 @@ population
 				Template	T_TFBot_Giant_Soldier_Spammer
 				CharacterAttributes
 				{
-					"damage force reduction" 0.05
-					"airblast vulnerability multiplier" 0.05
+					"damage force reduction" 0.005
+					"airblast vulnerability multiplier" 0.005
 				}
 			}
 		}
@@ -1468,8 +1544,8 @@ population
 				Template	T_TFBot_Giant_Soldier_Spammer
 				CharacterAttributes
 				{
-					"damage force reduction" 0.05
-					"airblast vulnerability multiplier" 0.05
+					"damage force reduction" 0.005
+					"airblast vulnerability multiplier" 0.005
 				}
 			}
 		}
@@ -1508,8 +1584,8 @@ population
 					Template	T_TFBot_Soldier_BurstFire
 					CharacterAttributes
 				{
-					"damage force reduction" 0.05
-					"airblast vulnerability multiplier" 0.05
+					"damage force reduction" 0.005
+					"airblast vulnerability multiplier" 0.005
 				}
 				}
 				TFBot
@@ -1517,8 +1593,8 @@ population
 					Template	T_TFBot_Giant_Medic_Regen
 					CharacterAttributes
 				{
-					"damage force reduction" 0.05
-					"airblast vulnerability multiplier" 0.05
+					"damage force reduction" 0.005
+					"airblast vulnerability multiplier" 0.005
 				}
 				}
 			}
@@ -1574,8 +1650,8 @@ population
 					Template	T_TFBot_Soldier_BurstFire
 					CharacterAttributes
 				{
-					"damage force reduction" 0.05
-					"airblast vulnerability multiplier" 0.05
+					"damage force reduction" 0.005
+					"airblast vulnerability multiplier" 0.005
 				}
 				}
 				TFBot
@@ -1583,8 +1659,8 @@ population
 					Template	T_TFBot_Giant_Medic_Regen
 					CharacterAttributes
 				{
-					"damage force reduction" 0.05
-					"airblast vulnerability multiplier" 0.05
+					"damage force reduction" 0.005
+					"airblast vulnerability multiplier" 0.005
 				}
 				}
 			}
@@ -1623,8 +1699,8 @@ population
 					Template	T_TFBot_Giant_Heavyweapons_Shotgun
 					CharacterAttributes
 					{
-						"damage force reduction" 0.05
-						"airblast vulnerability multiplier" 0.05
+						"damage force reduction" 0.005
+						"airblast vulnerability multiplier" 0.005
 					}
 				}
 				TFBot
@@ -1632,8 +1708,8 @@ population
 					Template	T_TFBot_Medic_QuickUber
 					CharacterAttributes
 					{
-						"damage force reduction" 0.05
-						"airblast vulnerability multiplier" 0.05
+						"damage force reduction" 0.005
+						"airblast vulnerability multiplier" 0.005
 					}
 				}
 				TFBot
@@ -1641,8 +1717,8 @@ population
 					Template	T_TFBot_Medic_QuickUber
 					CharacterAttributes
 					{
-						"damage force reduction" 0.05
-						"airblast vulnerability multiplier" 0.05
+						"damage force reduction" 0.005
+						"airblast vulnerability multiplier" 0.005
 					}
 				}
 				TFBot
@@ -1650,8 +1726,8 @@ population
 					Template	T_TFBot_Medic_QuickUber
 					CharacterAttributes
 					{
-						"damage force reduction" 0.05
-						"airblast vulnerability multiplier" 0.05
+						"damage force reduction" 0.005
+						"airblast vulnerability multiplier" 0.005
 					}
 				}
 				TFBot
@@ -1659,8 +1735,8 @@ population
 					Template	T_TFBot_Medic_QuickUber
 					CharacterAttributes
 					{
-						"damage force reduction" 0.05
-						"airblast vulnerability multiplier" 0.05
+						"damage force reduction" 0.005
+						"airblast vulnerability multiplier" 0.005
 					}
 				}
 			}
@@ -1734,8 +1810,8 @@ population
 					Template	T_TFBot_Giant_Heavyweapons_Deflector
 					CharacterAttributes
 					{
-						"damage force reduction" 0.05
-						"airblast vulnerability multiplier" 0.05
+						"damage force reduction" 0.005
+						"airblast vulnerability multiplier" 0.005
 					}
 				}
 				TFBot
@@ -1743,8 +1819,8 @@ population
 					Template	T_TFBot_Medic_QuickUber
 					CharacterAttributes
 					{
-						"damage force reduction" 0.05
-						"airblast vulnerability multiplier" 0.05
+						"damage force reduction" 0.005
+						"airblast vulnerability multiplier" 0.005
 					}
 				}
 				TFBot
@@ -1752,8 +1828,8 @@ population
 					Template	T_TFBot_quick_krit
 					CharacterAttributes
 					{
-						"damage force reduction" 0.05
-						"airblast vulnerability multiplier" 0.05
+						"damage force reduction" 0.005
+						"airblast vulnerability multiplier" 0.005
 					}
 				}
 			}
@@ -1809,7 +1885,7 @@ population
 		}
 		WaveSpawn
 		{
-			Name	7B
+			Name	7BS
 			WaitForAllDead	7A
 			Where	spawnbot
 			TotalCurrency	20
@@ -1855,6 +1931,7 @@ population
 			{
 				Class	Heavyweapons
 				Attributes	AlwaysCrit
+				Name	"Crit Heavy"
 			}
 		}
 		WaveSpawn
@@ -1888,6 +1965,7 @@ population
 			{
 				Class	Heavyweapons
 				Attributes	AlwaysCrit
+				Name	"Crit Heavy"
 			}
 		}
 		WaveSpawn
@@ -1930,7 +2008,7 @@ population
 			Name	7Ds
 			WaitForAllDead	7C4
 			Where	spawnbot
-			TotalCurrency	20
+			TotalCurrency	50
 			TotalCount	5
 			MaxActive	3
 			SpawnCount	1
@@ -1977,11 +2055,12 @@ population
 				TFBot
 				{
 					Template	T_TFBot_Heavyweapons_Heater
+					Name	"Giant Heater Heavy"
 					Attributes	AlwaysCrit
 					CharacterAttributes
 					{
-						"damage force reduction" 0.05
-						"airblast vulnerability multiplier" 0.05
+						"damage force reduction" 0.005
+						"airblast vulnerability multiplier" 0.005
 					}
 				}
 				TFBot
@@ -1989,8 +2068,8 @@ population
 					Template	T_TFBot_Giant_Medic
 					CharacterAttributes
 					{
-						"damage force reduction" 0.05
-						"airblast vulnerability multiplier" 0.05
+						"damage force reduction" 0.005
+						"airblast vulnerability multiplier" 0.005
 					}
 				}
 				TFBot
@@ -2024,13 +2103,13 @@ population
 		}
 		WaveSpawn
 		{
-			Name	Boss
+			Name	Boss1
 			Where	spawnbot
 			TotalCurrency	200
 			TotalCount	1
 			MaxActive	1
 			SpawnCount	1
-			WaitBeforeStarting	3
+			WaitBeforeStarting	27
 			WaitBetweenSpawns	0
 			TFBot
 			{
@@ -2039,13 +2118,29 @@ population
 		}
 		WaveSpawn
 		{
-			Name	Boss
+			Name	Boss1dead
+			WaitForAllDead	Boss1
+			Where	spawnbot
+			TotalCount	4
+			MaxActive	2
+			SpawnCount	1
+			WaitBeforeStarting	3
+			WaitBetweenSpawns	3
+			Support	1
+			TFBot
+			{
+				Template	T_TFBot_Soldier_Extended_Concheror
+			}
+		}
+		WaveSpawn
+		{
+			Name	Boss2
 			Where	spawnbot
 			TotalCurrency	200
 			TotalCount	1
 			MaxActive	1
 			SpawnCount	1
-			WaitBeforeStarting	5
+			WaitBeforeStarting	25
 			WaitBetweenSpawns	0
 			TFBot
 			{
@@ -2054,17 +2149,133 @@ population
 		}
 		WaveSpawn
 		{
-			Name	Boss
+			Name	Boss2dead
+			WaitForAllDead	Boss2
+			Where	spawnbot
+			TotalCount	4
+			MaxActive	2
+			SpawnCount	2
+			WaitBeforeStarting	3
+			Support 1
+			WaitBetweenSpawns	15
+			Squad
+			{
+				TFBot
+				{
+					Class Heavy
+					Skill	Expert
+				}
+				TFBot
+				{
+					Template	T_TFBot_inf_krit
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name	Bosssupport
+			Where	spawnbot
+			TotalCount	4
+			MaxActive	2
+			SpawnCount	1
+			WaitBeforeStarting	39
+			Support 1
+			WaitBetweenSpawns	3
+			TFBot
+			{
+				Template	T_TFBot_Soldier_Extended_Battalion
+			}
+		}
+		WaveSpawn
+		{
+			Name	Bosssupport
+			Where	spawnbot
+			TotalCount	4
+			MaxActive	2
+			SpawnCount	1
+			WaitBeforeStarting	35
+			Support 1
+			WaitBetweenSpawns	8
+			TFBot
+			{
+				Template	T_TFBot_inf_krit
+			}
+		}
+		WaveSpawn
+		{
+			Name	Bosssupport
+			Where	spawnbot
+			TotalCount	4
+			MaxActive	2
+			SpawnCount	1
+			WaitBeforeStarting	35
+			Support 1
+			WaitBetweenSpawns	10
+			TFBot
+			{
+				Template	T_TFBot_Medic_BigHeal
+			}
+		}
+		WaveSpawn
+		{
+			Name	Boss3
 			Where	spawnbot
 			TotalCurrency	200
 			TotalCount	1
 			MaxActive	1
 			SpawnCount	1
-			WaitBeforeStarting	7
+			WaitBeforeStarting	23
 			WaitBetweenSpawns	0
 			TFBot
 			{
 				Template	T_TFBot_soldier_bro_3
+			}
+		}
+		WaveSpawn
+		{
+			Name	Engi
+			Where	spawnbot
+			TotalCount	12
+			MaxActive	4
+			SpawnCount	1
+			WaitBeforeStarting	2
+			WaitBetweenSpawns	0.5
+			Support Limited
+			TFBot
+			{
+				Template	T_TFBot_Engineer_Sentry_Battle
+				Attributes	IgnoreFlag
+			}
+		}
+		WaveSpawn
+		{
+			Name	Engi
+			Where	spawnbot_flank
+			TotalCount	12
+			MaxActive	4
+			SpawnCount	1
+			WaitBeforeStarting	2
+			WaitBetweenSpawns	0.5
+			Support Limited
+			TFBot
+			{
+				Template	T_TFBot_Engineer_Sentry_Battle
+				Attributes	IgnoreFlag
+			}
+		}
+		WaveSpawn
+		{
+			Name	Support
+			Where	spawnbot
+			TotalCount	12
+			MaxActive	2
+			SpawnCount	2
+			WaitBeforeStarting	2
+			WaitBetweenSpawns	3
+			Support 1
+			TFBot
+			{
+				Template	T_TFBot_Heavyweapons_Gnome
 			}
 		}
 	}
